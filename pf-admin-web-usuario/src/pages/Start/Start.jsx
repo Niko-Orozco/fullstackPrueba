@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { UsuarioService } from "../../service/UsuarioService.jsx";
-import { DataTable } from 'primereact/datatable';
-import { Column } from "primereact/column";
-import { Panel } from "primereact/panel";
+import { PanelUsuario } from '../../components/Panel/PanelUsuario';
+import { ModalUsuarios } from "../../components/Modal/ModalUsuarios";
 
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -18,24 +17,15 @@ export default class Start extends Component {
     }
 
     componentDidMount(){
-        this.usuarioService.listarUsuarios().then(data => this.setState({ usuarios: data })
-        );
+        this.usuarioService.listarUsuarios().then(data => this.setState({ usuarios: data }));
     }
     
     render() { 
         return (
-            <Panel header="Administracion de Usuarios" style={{ width: '70%', margin: '0 auto', marginTop: '20px' }}>
-                <DataTable value={this.state.usuarios}>
-                    <Column field="id" header="ID" ></Column>
-                    <Column field="nombre" header="Nombre" ></Column>
-                    <Column field="apellido" header="Apellido" ></Column>
-                    <Column field="fechaDeNacimiento" header="Fecha de nacimiento" ></Column>
-                    <Column field="estadoCivil" header="Estado civil" ></Column>
-                    <Column field="tieneHermanos" header="Tiene hermanos" ></Column>
-                    <Column field="estado" header="Estado" ></Column>
-                    <Column field="roles" header="Roles" ></Column>
-                </DataTable>
-            </Panel>
+            <div style={{ width: '70%', margin: '0 auto', marginTop: '20px' }}>
+                <PanelUsuario usuarios={this.state.usuarios}/>
+                <ModalUsuarios/>
+            </div>
         );
     }
 }
